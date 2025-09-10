@@ -25,21 +25,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
 
         <!-- Botón de respuesta Verdadero -->
-        <Button
+        <ImageButton
             android:id="@+id/boton_verdadero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_verdadero" />
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/boton_verdadero"
+            android:src="@drawable/ic_true"
+            app:tint="?attr/colorPrimary" />
+
+        <!-- Separación -->
+        <Space
+            android:layout_width="24dp"
+            android:layout_height="0dp" />
 
         <!-- Botón de respuesta Falso -->
-        <Button
+        <ImageButton
             android:id="@+id/boton_falso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_falso" />
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/boton_falso"
+            android:src="@drawable/ic_false"
+            app:tint="?attr/colorError" />
     </LinearLayout>
 
         <!-- Botones para retroceder y siguiente alineados horizontalmente -->

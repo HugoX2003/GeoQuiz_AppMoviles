@@ -9,6 +9,7 @@ import com.dapm.geoquiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 import android.util.Log
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     // Índice actual de la pregunta
     private var indiceActual: Int = 0
 
+    // Estado por pregunta
+    private val respondida = BooleanArray(preguntas.size) { false }
+    private var totalCorrectas = 0
+    private var totalRespondidas = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,14 +44,14 @@ class MainActivity : AppCompatActivity() {
         // Mostrar la primera pregunta al iniciar
         mostrarPregunta()
 
-        // Botón Verdadero
+        // Responder Verdadero
         binding.botonVerdadero.setOnClickListener {
-            verificarRespuesta(true)
+            procesarRespuesta(usuarioDijo = true)
         }
 
-        // Botón Falso
+        // Responder Falso
         binding.botonFalso.setOnClickListener {
-            verificarRespuesta(false)
+            procesarRespuesta(usuarioDijo = false)
         }
 
         // Botón siguiente
@@ -65,18 +71,42 @@ class MainActivity : AppCompatActivity() {
     private fun mostrarPregunta() {
         val pregunta = preguntas[indiceActual]
         binding.textoPregunta.setText(pregunta.textoPregunta)
+        actualizarHabilitadoRespuestas()
     }
 
-    // Validar la respuesta del usuario
-    private fun verificarRespuesta(rptaUsuario: Boolean) {
-        val esCorrecta = preguntas[indiceActual].esVerdadera == rptaUsuario
-        val mensaje = if (esCorrecta) {
-            getString(R.string.toast_correcto)
-        } else {
-            getString(R.string.toast_incorrecto)
+    private fun actualizarHabilitadoRespuestas() {
+        val yaRespondida = respondida[indiceActual]
+        binding.botonVerdadero.isEnabled = !yaRespondida
+        binding.botonFalso.isEnabled = !yaRespondida
+    }
+
+    private fun procesarRespuesta(usuarioDijo: Boolean) {
+        // Evita doble click si ya fue respondida
+        if (respondida[indiceActual]) return
+
+        val correcta = preguntas[indiceActual].esVerdadera == usuarioDijo
+        if (correcta) totalCorrectas++
+        respondida[indiceActual] = true
+        totalRespondidas++
+
+        // Feedback inmediato
+        showTopSnack(
+            if(correcta) getString(R.string.toast_correcto) else getString(R.string.toast_incorrecto),
+            if (correcta) Color.parseColor("#2E7D32") else Color.parseColor("#C62828")
+        )
+
+        // Deshabilita botones para esta pregunta
+        actualizarHabilitadoRespuestas()
+
+        // Si ya respondió todas, mostrar Toast con porcentaje
+        if (totalRespondidas == preguntas.size) {
+            val porcentaje = (totalCorrectas * 100) / preguntas.size
+            Toast.makeText(
+                this,
+                "¡Completado! Aciertos: $totalCorrectas/${preguntas.size} ($porcentaje%)",
+                Toast.LENGTH_LONG
+            ).show()
         }
-        val color = if (esCorrecta) Color.parseColor("#2E7D32") else Color.parseColor("#C62828")
-        showTopSnack(mensaje, color)
     }
 
     // Función reutilizable para mostrar Snackbars arriba
