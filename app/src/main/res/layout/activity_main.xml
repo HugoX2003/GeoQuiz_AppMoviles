@@ -1,0 +1,70 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Contenedor principal para organizar los elementos en vertical -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Texto de la pregunta -->
+        <TextView
+            android:id="@+id/texto_pregunta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp" />
+
+    <!-- Botones Verdadero / Falso alineados horizontalmente -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- Botón de respuesta Verdadero -->
+        <Button
+            android:id="@+id/boton_verdadero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_verdadero" />
+
+        <!-- Botón de respuesta Falso -->
+        <Button
+            android:id="@+id/boton_falso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_falso" />
+    </LinearLayout>
+
+        <!-- Botones para retroceder y siguiente alineados horizontalmente -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+        <!-- Botón para retroceder -->
+        <Button
+            android:id="@+id/boton_anterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_anterior"
+            app:icon="@drawable/arrow_left"
+            app:iconGravity="end" />
+
+        <Button
+            android:id="@+id/boton_siguiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_siguiente"
+            app:icon="@drawable/arrow_right"
+            app:iconGravity="end" />
+        </LinearLayout>
+    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
