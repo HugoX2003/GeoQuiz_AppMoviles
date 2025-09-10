@@ -10,8 +10,16 @@ import com.google.android.material.snackbar.Snackbar
 
 import android.util.Log
 import android.widget.Toast
+import kotlin.math.min
 
 class MainActivity : AppCompatActivity() {
+    // Claves para guardar/restaurar estado
+    private companion object {
+        const val KEY_INDICE = "indiceActual"
+        const val KEY_RESPONDIDA = "respondida"
+        const val KEY_TOTAL_CORRECTAS = "totalCorrectas"
+        const val KEY_TOTAL_RESPONDIDAS = "totalRespondidas"
+    }
 
     // Constante para el tag de los logs
     private val TAG = "MainActivity"
@@ -41,6 +49,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ---------- Restaurar estado si existe ----------
+        if (savedInstanceState != null) {
+            indiceActual = savedInstanceState.getInt(KEY_INDICE, 0)
+            totalCorrectas = savedInstanceState.getInt(KEY_TOTAL_CORRECTAS, 0)
+            totalRespondidas = savedInstanceState.getInt(KEY_TOTAL_RESPONDIDAS, 0)
+            savedInstanceState.getBooleanArray(KEY_RESPONDIDA)?.let { arr ->
+                // Copiamos con seguridad por si el tamaño difiere
+                val n = min(arr.size, respondida.size)
+                System.arraycopy(arr, 0, respondida, 0, n)
+            }
+        }
+
         // Mostrar la primera pregunta al iniciar
         mostrarPregunta()
 
@@ -65,6 +85,15 @@ class MainActivity : AppCompatActivity() {
             indiceActual = if (indiceActual == 0) preguntas.size - 1 else indiceActual - 1
             mostrarPregunta()
         }
+    }
+
+    // Guardar estado ante cambios de configuración (rotación, etc.)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_INDICE, indiceActual)
+        outState.putBooleanArray(KEY_RESPONDIDA, respondida)
+        outState.putInt(KEY_TOTAL_CORRECTAS, totalCorrectas)
+        outState.putInt(KEY_TOTAL_RESPONDIDAS, totalRespondidas)
     }
 
     // Mostrar la pregunta actual
