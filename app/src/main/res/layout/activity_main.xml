@@ -1,5 +1,4 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -7,77 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Contenedor principal para organizar los elementos en vertical -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-        <!-- Texto de la pregunta -->
         <TextView
             android:id="@+id/texto_pregunta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp" />
 
-    <!-- Botones Verdadero / Falso alineados horizontalmente -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="16dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
 
-        <!-- Botón de respuesta Verdadero -->
-        <ImageButton
-            android:id="@+id/boton_verdadero"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/boton_verdadero"
-            android:src="@drawable/ic_true"
-            app:tint="?attr/colorPrimary" />
+            <ImageButton
+                android:id="@+id/boton_verdadero"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/boton_verdadero"
+                android:src="@drawable/ic_true"
+                app:tint="?attr/colorPrimary" />
 
-        <!-- Separación -->
-        <Space
-            android:layout_width="24dp"
-            android:layout_height="0dp" />
+            <Space
+                android:layout_width="24dp"
+                android:layout_height="0dp" />
 
-        <!-- Botón de respuesta Falso -->
-        <ImageButton
-            android:id="@+id/boton_falso"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/boton_falso"
-            android:src="@drawable/ic_false"
-            app:tint="?attr/colorError" />
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/boton_falso"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/boton_falso"
+                android:src="@drawable/ic_false"
+                app:tint="?attr/colorError" />
+        </LinearLayout>
 
-        <!-- Botones para retroceder y siguiente alineados horizontalmente -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center">
 
-        <!-- Botón para retroceder -->
-        <Button
-            android:id="@+id/boton_anterior"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_anterior"
-            app:icon="@drawable/arrow_left"
-            app:iconGravity="end" />
+            <Button
+                android:id="@+id/boton_anterior"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boton_anterior"
+                app:icon="@drawable/arrow_left"
+                app:iconGravity="end" />
+
+            <Button
+                android:id="@+id/boton_siguiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boton_siguiente"
+                app:icon="@drawable/arrow_right"
+                app:iconGravity="end" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/boton_siguiente"
+            android:id="@+id/boton_trampa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/boton_siguiente"
-            app:icon="@drawable/arrow_right"
-            app:iconGravity="end" />
-        </LinearLayout>
+            android:text="Hacer Trampa"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
     </LinearLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
