@@ -3,6 +3,7 @@ package com.dapm.geoquiz
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dapm.geoquiz.databinding.ActivityTrampaBinding
 
@@ -21,8 +22,13 @@ class TrampaActivity : AppCompatActivity() {
         binding = ActivityTrampaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtener la respuesta correcta
-        rptaCorrecta = intent.getBooleanExtra(EXTRA_RPTA_CORRECTA, false)
+        // Restaurar estado si es necesario
+        if (savedInstanceState != null) {
+            rptaCorrecta = savedInstanceState.getBoolean(EXTRA_RPTA_CORRECTA)
+        } else {
+            // Obtener la respuesta correcta
+            rptaCorrecta = intent.getBooleanExtra(EXTRA_RPTA_CORRECTA, false)
+        }
 
         // Mostrar la respuesta correcta en la vista
         val textoRespuesta = if (rptaCorrecta) {
@@ -39,6 +45,12 @@ class TrampaActivity : AppCompatActivity() {
             setResult(RESULT_OK, data)
             finish()
         }
+    }
+
+    // Guardar el estado antes de que la actividad sea destruida
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putBoolean(EXTRA_RPTA_CORRECTA, rptaCorrecta)
     }
 
     // Crear un Intent para lanzar el TrampaActivity

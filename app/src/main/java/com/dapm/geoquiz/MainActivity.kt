@@ -32,14 +32,20 @@ class MainActivity : AppCompatActivity() {
 
         // Botón Siguiente
         binding.botonSiguiente.setOnClickListener {
-            preguntaViewModel.moverAlSiguiente()
-            mostrarPregunta()
+            if (preguntaViewModel.indiceActual < preguntaViewModel.cantidadPreguntas - 1) {
+                preguntaViewModel.moverAlSiguiente()
+                mostrarPregunta()
+            } else {
+                Toast.makeText(this, "Ya no hay más preguntas.", Toast.LENGTH_SHORT).show()
+            }
         }
 
         // Botón Anterior
         binding.botonAnterior.setOnClickListener {
-            preguntaViewModel.moverAlAnterior()
-            mostrarPregunta()
+            if (preguntaViewModel.indiceActual > 0) {
+                preguntaViewModel.moverAlAnterior()
+                mostrarPregunta()
+            }
         }
 
         // Botón Trampa
